@@ -305,24 +305,36 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script> -->
 <script>
-    // Retrieve user email from local storage
-    const userEmail = localStorage.getItem("user-email");
-  
-    if (!userEmail) {
-      // Redirect to login page if user email is not available
-      window.location.href = 'index.html';
-    } else {
-      // Display user email if available
-      document.getElementById("userEmail").textContent = userEmail;
-    }
-  
-    function logout() {
-      // Clear all user details and credentials from local storage
-      localStorage.clear();
-      // Redirect to login page
-      window.location.href = 'index.html';
-    }
-  </script>
+  // Import Firebase Auth methods
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+// Initialize Firebase Auth
+const auth = getAuth();
+
+// Retrieve user email from local storage
+const userEmail = localStorage.getItem("user-email");
+
+if (!userEmail) {
+  // Redirect to login page if user email is not available
+  window.location.href = 'index.html';
+} else {
+  // Display user email if available
+  document.getElementById("userEmail").textContent = userEmail;
+}
+
+function logout() {
+  // Sign out user from Firebase Auth
+  signOut(auth).then(() => {
+    // Clear user email from local storage
+    localStorage.removeItem("user-email");
+    // Redirect to login page
+    window.location.href = 'index.html';
+  }).catch((error) => {
+    console.error("Error signing out:", error);
+  });
+}
+
+</script>
 </body>
 </html>
 
