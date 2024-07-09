@@ -41,9 +41,9 @@
               Profile
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li class="dropdown-header">User: <span id="userEmail">User</span></li> <!-- User email displayed here -->
+              <li class="dropdown-header">User: <span id="userEmail">User</span></li>
               <li><hr class="dropdown-divider"></li>
-              <!-- <li><a class="dropdown-item" href="#" onclick=logout(); ><i class="fa fa-sign-out"></i> Logout</a></li> -->
+              <li><a class="dropdown-item" href="#" id="logout"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -306,18 +306,18 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script> -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+  import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 
   // Firebase configuration
   const firebaseConfig = {
-    apiKey: "AIzaSyCyxsNMHQOeRaGDdu0KV6KfIdFSd2l8PKk",
-    authDomain: "login-elegets.firebaseapp.com",
-    databaseURL: "https://login-elegets-default-rtdb.firebaseio.com",
-    projectId: "login-elegets",
-    storageBucket: "login-elegets.appspot.com",
-    messagingSenderId: "176329985795",
-    appId: "1:176329985795:web:50fa5c3fadd933c4d5e336"
-  };
+  apiKey: "AIzaSyCyxsNMHQOeRaGDdu0KV6KfIdFSd2l8PKk",
+  authDomain: "login-elegets.firebaseapp.com",
+  databaseURL: "https://login-elegets-default-rtdb.firebaseio.com",
+  projectId: "login-elegets",
+  storageBucket: "login-elegets.appspot.com",
+  messagingSenderId: "176329985795",
+  appId: "1:176329985795:web:50fa5c3fadd933c4d5e336"
+};
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -327,26 +327,24 @@
   onAuthStateChanged(auth, (user) => {
     const userEmailElement = document.getElementById('userEmail');
     if (user) {
-      // User is signed in
       userEmailElement.textContent = user.email;
     } else {
-      // No user is signed in, redirect to index.html
       window.location.href = 'index.html';
     }
   });
 
   // Logout function
-  function logout() {
-    // Perform logout operations (clear localStorage, sign out from Firebase, etc.)
-    signOut(auth).then(() => {
-      localStorage.clear(); // Clear all stored user data
-      window.location.href = 'index.html'; // Redirect to index.html after logout
-    }).catch((error) => {
-      console.error('Logout error:', error.message);
-      alert('Failed to logout. Please try again.');
-    });
-  }
-
+  document.getElementById('logout').addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+      localStorage.clear();
+      window.location.href = 'index.html';
+    } catch (error) {
+      console.error('Error signing out:', error.message);
+      alert('Failed to sign out. Please try again.');
+    }
+  });
 </script>
 </body>
 </html>
