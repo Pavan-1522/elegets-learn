@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Caveat:wght@500&family=Dancing+Script:wght@500;600&family=Libre+Barcode+39&family=Libre+Baskerville&family=Nosifer&family=Nothing+You+Could+Do&family=Noto+Sans&family=Pacifico&family=Press+Start+2P&family=Sirin+Stencil&family=Tiro+Telugu&family=Yuji+Hentaigana+Akari&family=Yuji+Syuku&display=swap&effect=fire-animation');
+@import url('https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&display=swap');
+
+body {
+    padding: 0px;
+    margin: 0px;
+    background-color: #000000; /* Black background */
+    color: #ffffff; /* White text color for the page content */
+}
+
+/* nav css start */
+.navbar {
+    background-color: #000000; /* Black background for navbar */
+    border: #ffffff 1px solid;
+    margin-bottom: 5px;
+}
+.nav-text:hover{
+    color: #d5f7e3;
+}
+.navbar-brand{
+    color: #38c172 ;
+    font-weight: 1000;
+    font-size: 25px;
+    padding-left: 40px;
+}
+.nav-link {
+    color: #ffffff !important; /* White text color for navbar links and brand */
+}
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1); /* White border for the toggler */
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); /* White hamburger menu */
+}
+.nav-item{
+    margin-left: 15px;
+    font-size: 18px;
+}
+.nav-item:hover{
+    border-bottom: 1px solid rgb(41, 212, 107);
+}
+
+.dropdown-item.logout {
+  color: #ff0000; /* Red color for logout */
+}
+.dropdown-item.logout:hover {
+  background-color: #ffe6e6; /* Light red background on hover */
+}
+.dropdown-item i {
+  margin-right: 8px; /* Space between icon and text */
+}
+/* nav css end */
+
+
+
+
+
+/* footer css starts */
+
+footer {
+    background-color: #1a1a1a; /* Dark background color */
+    color: #fff; /* White text color */
+    padding: 40px 20px;
+    font-family: 'Rancho', sans-serif; /* Use 'Rancho' font family */
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1 1 300px;
+    margin: 20px; /* Adds space between the sections */
+    text-align: center; /* Center-align text */
+}
+.footer-section a {
+  font-size: 28px;
+  text-decoration: none;
+  color: #cae7d6;
+}
+.footer-section a:hover {
+  color: #31754d;
+}
+.footer-section p {
+    font-size: 25px;
+}
+.footer-section p:hover {
+    color: #31754d;
+}
+.footer-section h3 {
+    font-size: 34px;
+    margin-bottom: 10px;
+    color: #38c172; /* Green accent color */
+}
+.foot-image{
+  margin: 0px 0;
+  width: 150px;
+  height: 90px;
+  border-radius: 15px;
+}
+
+.footer-center ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-center ul li {
+    margin: 5px 0;
+}
+
+.footer-center ul li a {
+    color: #d5f7e3; /* Green link color */
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 25px;
+}
+
+.footer-center ul li a:hover {
+    color: #2b956d; /* Darker green hover color */
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: column; /* Display icons and names vertically */
+    align-items: center; /* Center items horizontally */
+    margin-top: 10px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px; /* Adjust width as needed */
+    height: 40px;
+    border-radius: 4px;
+    margin: 5px 0; /* Adjust vertical margin */
+    background-color: #38c172; /* Green background color */
+    color: #fff; /* White text color */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s;
+    font-size: 18px;
+}
+
+.social-icons a:hover {
+    background-color: #2b956d; /* Darker green hover color */
+}
+
+.social-icons i {
+    font-size: 24px;
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.social-icons span {
+    font-size: 20px; /* Adjust font size as needed */
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ccc; /* Lighter text color */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section {
+        margin: 10px 0; /* Adjust margin for smaller screens */
+    }
+}
+
+/* footer css ends */

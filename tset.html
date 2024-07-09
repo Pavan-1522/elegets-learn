@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .search-container {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #44EE7F;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .search-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #44EE7F;
+      color: #fff;
+      border: 1px solid #44EE7F;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .search-btn:hover {
+      background-color: #2FBF4B;
+      border-color: #2FBF4B;
+    }
+
+    .message {
+      color: #dc3545;
+      margin-bottom: 10px;
+    }
+
+    #projectsContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-gap: 20px;
+    }
+
+    .project-card {
+      background-color: #222;
+      padding: 20px;
+      border: 1px solid #44EE7F;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .project-card p {
+      font-size: 16px;
+      color: #fff;
+      flex-grow: 1;
+    }
+
+    .project-card .date {
+      display: none; /* Hide the date from users */
+    }
+
+    .btn {
+      align-self: flex-end;
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 16px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #44EE7F;
+      border: 1px solid #44EE7F;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #2FBF4B;
+      border-color: #2FBF4B;
+    }
+
+    .load-more-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: #fff;
+      border: 1px solid #28a745;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .load-more-btn:hover {
+      background-color: #218838;
+      border-color: #218838;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .container {
+        padding: 10px;
+      }
+
+      .search-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-input {
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      .search-btn {
+        border-radius: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search projects...">
+      <button class="search-btn" onclick="searchProjects()">
+        Search
+      </button>
+    </div>
+    <div id="message" class="message"></div>
+    <div id="projectsContainer">
+      <!-- Project cards will be added here -->
+    </div>
+    <button id="loadMoreBtn" class="load-more-btn" onclick="loadMoreProjects()">Load More</button>
+  </div>
+
+  <script>
+    // Function to generate custom projects with specific details
+    function generateProjects() {
+      return [
+        {
+          title: 'Project 1',
+          description: 'Description of Project 1',
+          link: 'https://example.com/project1',
+          image: 'https://via.placeholder.com/250', // Placeholder image URL
+          date: '2024-07-12' // Date of upload (should be in ISO format)
+        },
+        {
+          title: 'Project 2',
+          description: 'Description of Project 2',
+          link: 'https://example.com/project2',
+          image: 'https://via.placeholder.com/250', // Placeholder image URL
+          date: '2024-07-10' // Date of upload (should be in ISO format)
+        },
+        {
+          title: 'Project 3',
+          description: 'Description of Project 3',
+          link: 'https://example.com/project3',
+          image: 'https://via.placeholder.com/250', // Placeholder image URL
+          date: '2024-07-11' // Date of upload (should be in ISO format)
+        },
+        // Add more projects as needed
+      ];
+    }
+
+    const allProjects = generateProjects();
+    const itemsPerPage = 20;
+    let currentPage = 0;
+
+    function displayProjects(startIndex, endIndex) {
+      const container = document.getElementById('projectsContainer');
+      container.innerHTML = ''; // Clear previous projects
+
+      const sortedProjects = allProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      for (let i = startIndex; i < endIndex && i < sortedProjects.length; i++) {
+        const project = sortedProjects[i];
+        const projectCard = `
+          <div class="project-card">
+            <img src="${project.image}" alt="${project.title}" style="width: 100%; max-height: 200px; object-fit: cover;">
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <span class="date">${project.date}</span>
+            <a href="${project.link}" class="btn">View Project</a>
+          </div>
+        `;
+        container.innerHTML += projectCard;
+      }
+    }
+
+    function loadMoreProjects() {
+      const startIndex = currentPage * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      displayProjects(startIndex, endIndex);
+      currentPage++;
+    }
+
+    function searchProjects() {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const messageElement = document.getElementById('message');
+
+      if (query === '') {
+        messageElement.textContent = 'Please enter a search term.';
+        displayProjects(0, itemsPerPage); // Display initial projects if search is empty
+        return;
+      } else {
+        messageElement.textContent = '';
+      }
+
+      const searchResults = allProjects.filter(project =>
+        project.title.toLowerCase().includes(query) ||
+        project.description.toLowerCase().includes(query)
+      );
+
+      if (searchResults.length > 0) {
+        const container = document.getElementById('projectsContainer');
+        container.innerHTML = ''; // Clear previous projects
+        searchResults.forEach(project => {
+          const projectCard = `
+            <div class="project-card">
+              <img src="${project.image}" alt="${project.title}" style="width: 100%; max-height: 200px; object-fit: cover;">
+              <h3>${project.title}</h3>
+              <p>${project.description}</p>
+              <span class="date">${project.date}</span>
+              <a href="${project.link}" class="btn">View Project</a>
+            </div>
+          `;
+          container.innerHTML += projectCard;
+        });
+      } else {
+        messageElement.textContent = 'No results found.';
+      }
+    }
+
+    // Function to handle enter key press in search input
+    document.getElementById('searchInput').addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        searchProjects();
+      }
+    });
+
+    // Initially display the first set of projects
+    displayProjects(0, itemsPerPage);
+  </script>
+</body>
+</html>
